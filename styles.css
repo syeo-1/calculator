@@ -1,0 +1,56 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 4fr;
+    grid-template-areas: 
+        "display display"
+        "operandGroup operatorGroup"
+    ;
+    margin: 0 auto;
+    width: 500px;
+    height: 750px;
+}
+
+button {
+    color: white;
+}
+
+.display {
+    background-color: #a2af77;
+    grid-area: display;
+    font-size: 32px;
+    text-align: right;
+    padding-top: 10%;
+}
+
+.operandGroup {
+    grid-area: operandGroup;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+.decimal {
+    grid-column: 2/4;
+}
+.operand {
+    background-color: #313131;
+}
+
+.operatorGroup {
+    grid-area: operatorGroup;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+.resetting {
+    background-color: gray;
+}
+.math {
+    background-color: #ea8e27;
+}
+.equals {
+    grid-column: 1/3;
+}
+
+
+
