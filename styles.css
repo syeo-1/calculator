@@ -1,3 +1,15 @@
+@media (max-width: 1366px) {
+    /*adjust display text for mobile*/
+    .display {
+        padding-top: 15%;
+    }
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -6,21 +18,22 @@
         "display display"
         "operandGroup operatorGroup"
     ;
-    margin: 0 auto;
-    width: 500px;
-    height: 750px;
+    width: 100%;
+    /* height: 900px; */
+    height: 100%;
 }
 
 button {
     color: white;
+    font-size: 24px;
 }
 
 .display {
     background-color: #a2af77;
     grid-area: display;
-    font-size: 32px;
+    font-size: 36px;
     text-align: right;
-    padding-top: 10%;
+    padding-top: 7%;
 }
 
 .operandGroup {
