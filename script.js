@@ -135,28 +135,28 @@ function toMathOperators() {
     // let div = document.getElementsByClassName("divide")[0];
     let addit = document.getElementsByClassName("add")[0];
     // let sub = document.getElementsByClassName("subtract")[0];
-    let eq = document.getElementsByClassName("equals")[0];
+    // let eq = document.getElementsByClassName("equals")[0];
 
     multi.addEventListener("click", multiply);
     // div.addEventListener("click", divide);
     addit.addEventListener("click", add);
     // sub.addEventListener("click", subtract);
-    eq.addEventListener("click", equals);
+    // eq.addEventListener("click", equals);
 }
 // function toDecimal() {
 //     let decimal = document.querySelector(".decimal");
 //     decimal.addEventListener("click", decimalDisplay);
 // }
-// function toEquals() {
-//     let equal = document.querySelector(".equals");
-//     equal.addEventListener("click", equals);
-// }
+function toEquals() {
+    let equal = document.querySelector(".equals");
+    equal.addEventListener("click", equals);
+}
 function addEventListen() {
     toOperands();
     toResetterOperators();
     toMathOperators();
     // toDecimal();
-    // toEquals();
+    toEquals();
 }
 function calculator() {
     secondPlusOperand = false;
