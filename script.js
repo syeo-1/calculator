@@ -18,21 +18,43 @@ function multiply() {
         operandNum2 = parseFloat(display.textContent);
         display.textContent = (operandNum1*operandNum2).toString();
         operandNum1 *= operandNum2;
+    } else if (addPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1+operandNum2).toString();
+        operandNum1 += operandNum2;
     } else {
         operandNum1 = parseFloat(display.textContent);
-        currentOperator = "*";
     }
+    currentOperator = "*";
     multiplyPressed = true;
     secondPlusOperand = true;
+
+    addPressed = false;
 }
 // function divide() {
 //     let display = document.querySelector(".display");
 //     display.textContent = e.target.textContent;
 // }
-// function add() {
-//     let display = document.querySelector(".display");
-//     display.textContent = e.target.textContent;
-// }
+function add() {
+    let display = document.querySelector(".display");
+
+    if (addPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1+operandNum2).toString();
+        operandNum1 += operandNum2;
+    } else if (multiplyPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1*operandNum2).toString();
+        operandNum1 *= operandNum2;
+    } else {
+        operandNum1 = parseFloat(display.textContent);
+    }
+    currentOperator = "+";
+    addPressed = true;
+    secondPlusOperand = true;
+
+    multiplyPressed = false;
+}
 
 // function subtract() {
 //     let display = document.querySelector(".display");
@@ -41,11 +63,16 @@ function multiply() {
 function equals(){
     let display = document.querySelector(".display");
     operandNum2 = parseFloat(display.textContent);
+
+    console.log(currentOperator);
     
     if (currentOperator === "*") {
         display.textContent = (operandNum1*operandNum2).toString();
-    }
+    } else if (currentOperator === "+") {
+        display.textContent = (operandNum1+operandNum2).toString();
+    } 
     multiplyPressed = false;
+    addPressed = false;
     secondPlusOperand = false;
 }
 
@@ -85,6 +112,7 @@ function clearDisplay() {
     operandNum2 = undefined;
     secondPlusOperand = false;
     multiplyPressed = false;
+    addPressed = false;
 }
 
 function toOperands() {
@@ -105,13 +133,13 @@ function toResetterOperators() {
 function toMathOperators() {
     let multi = document.getElementsByClassName("multiply")[0];
     // let div = document.getElementsByClassName("divide")[0];
-    // let addit = document.getElementsByClassName("add")[0];
+    let addit = document.getElementsByClassName("add")[0];
     // let sub = document.getElementsByClassName("subtract")[0];
     let eq = document.getElementsByClassName("equals")[0];
 
     multi.addEventListener("click", multiply);
     // div.addEventListener("click", divide);
-    // addit.addEventListener("click", add);
+    addit.addEventListener("click", add);
     // sub.addEventListener("click", subtract);
     eq.addEventListener("click", equals);
 }
@@ -119,20 +147,21 @@ function toMathOperators() {
 //     let decimal = document.querySelector(".decimal");
 //     decimal.addEventListener("click", decimalDisplay);
 // }
-function toEquals() {
-    let equal = document.querySelector(".equals");
-    equal.addEventListener("click", equals);
-}
+// function toEquals() {
+//     let equal = document.querySelector(".equals");
+//     equal.addEventListener("click", equals);
+// }
 function addEventListen() {
     toOperands();
     toResetterOperators();
     toMathOperators();
     // toDecimal();
-    toEquals();
+    // toEquals();
 }
 function calculator() {
     secondPlusOperand = false;
     multiplyPressed = false;
+    addPressed = false;
     addEventListen();
 }
 
@@ -142,4 +171,5 @@ let operandNum2;
 let currentOperator;
 let secondPlusOperand;
 let multiplyPressed;
+let addPressed;
 calculator();
