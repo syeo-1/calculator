@@ -48,6 +48,9 @@ button {
 .operand {
     background-color: #313131;
 }
+.decimal {
+    background-color: #313131;
+}
 
 .operatorGroup {
     grid-area: operatorGroup;
@@ -55,7 +58,10 @@ button {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
 }
-.resetting {
+.delete {
+    background-color: gray;
+}
+.clear {
     background-color: gray;
 }
 .math {
