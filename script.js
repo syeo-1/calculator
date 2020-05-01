@@ -22,6 +22,10 @@ function multiply() {
         operandNum2 = parseFloat(display.textContent);
         display.textContent = (operandNum1+operandNum2).toString();
         operandNum1 += operandNum2;
+    } else if (subPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1-operandNum2).toString();
+        operandNum1 -= operandNum2;
     } else {
         operandNum1 = parseFloat(display.textContent);
     }
@@ -30,6 +34,7 @@ function multiply() {
     secondPlusOperand = true;
 
     addPressed = false;
+    subPressed = false;
 }
 // function divide() {
 //     let display = document.querySelector(".display");
@@ -38,14 +43,18 @@ function multiply() {
 function add() {
     let display = document.querySelector(".display");
 
-    if (addPressed) {
-        operandNum2 = parseFloat(display.textContent);
-        display.textContent = (operandNum1+operandNum2).toString();
-        operandNum1 += operandNum2;
-    } else if (multiplyPressed) {
+    if (multiplyPressed) {
         operandNum2 = parseFloat(display.textContent);
         display.textContent = (operandNum1*operandNum2).toString();
         operandNum1 *= operandNum2;
+    } else if (addPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1+operandNum2).toString();
+        operandNum1 += operandNum2;
+    } else if (subPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1-operandNum2).toString();
+        operandNum1 -= operandNum2;
     } else {
         operandNum1 = parseFloat(display.textContent);
     }
@@ -54,26 +63,49 @@ function add() {
     secondPlusOperand = true;
 
     multiplyPressed = false;
+    subPressed = false;
 }
 
-// function subtract() {
-//     let display = document.querySelector(".display");
-//     display.textContent = e.target.textContent;
-// }
+function subtract() {
+    let display = document.querySelector(".display");
+    if (multiplyPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1*operandNum2).toString();
+        operandNum1 *= operandNum2;
+    } else if (addPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1+operandNum2).toString();
+        operandNum1 += operandNum2;
+    } else if (subPressed) {
+        operandNum2 = parseFloat(display.textContent);
+        display.textContent = (operandNum1-operandNum2).toString();
+        operandNum1 -= operandNum2;
+    } else {
+        operandNum1 = parseFloat(display.textContent);
+    }
+
+    currentOperator = "-";
+    subPressed = true;
+    secondPlusOperand = true;
+
+    multiplyPressed = false;
+    addPressed = false;
+}
 function equals(){
     let display = document.querySelector(".display");
     operandNum2 = parseFloat(display.textContent);
-
-    console.log(currentOperator);
     
     if (currentOperator === "*") {
         display.textContent = (operandNum1*operandNum2).toString();
     } else if (currentOperator === "+") {
         display.textContent = (operandNum1+operandNum2).toString();
-    } 
+    } else if (currentOperator === "-") {
+        display.textContent = (operandNum1-operandNum2).toString();
+    }
     multiplyPressed = false;
     addPressed = false;
     secondPlusOperand = false;
+    subPressed = false;
 }
 
 function operandDisplay(e) {
@@ -113,6 +145,7 @@ function clearDisplay() {
     secondPlusOperand = false;
     multiplyPressed = false;
     addPressed = false;
+    subPressed = false;
 }
 
 function toOperands() {
@@ -134,13 +167,13 @@ function toMathOperators() {
     let multi = document.getElementsByClassName("multiply")[0];
     // let div = document.getElementsByClassName("divide")[0];
     let addit = document.getElementsByClassName("add")[0];
-    // let sub = document.getElementsByClassName("subtract")[0];
+    let sub = document.getElementsByClassName("subtract")[0];
     // let eq = document.getElementsByClassName("equals")[0];
 
     multi.addEventListener("click", multiply);
     // div.addEventListener("click", divide);
     addit.addEventListener("click", add);
-    // sub.addEventListener("click", subtract);
+    sub.addEventListener("click", subtract);
     // eq.addEventListener("click", equals);
 }
 // function toDecimal() {
@@ -162,6 +195,7 @@ function calculator() {
     secondPlusOperand = false;
     multiplyPressed = false;
     addPressed = false;
+    subPressed = false;
     addEventListen();
 }
 
@@ -172,4 +206,5 @@ let currentOperator;
 let secondPlusOperand;
 let multiplyPressed;
 let addPressed;
+let subPressed;
 calculator();
