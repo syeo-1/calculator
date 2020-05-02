@@ -199,7 +199,7 @@ function operandDisplay(e) {
         if (displayArray.length === 0 && e.target.textContent !== "0") {
             displayArray.push(e.target.textContent);
             display.textContent = displayArray.join("");
-        } else if (displayArray.length > 0) {
+        } else if (displayArray.length > 0 && displayArray.length < 15) {
             displayArray.push(e.target.textContent);
             display.textContent = displayArray.join("");
         }
