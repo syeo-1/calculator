@@ -78,21 +78,26 @@ function subtract() {
 function equals(){
     let display = document.querySelector(".display");
     operandNum2 = parseFloat(display.textContent);
-    
-    if (currentOperator === "*") {
-        display.textContent = (operandNum1*operandNum2).toString();
-    } else if (currentOperator === "+") {
-        display.textContent = (operandNum1+operandNum2).toString();
-    } else if (currentOperator === "-") {
-        display.textContent = (operandNum1-operandNum2).toString();
-    } else if (currentOperator === "/") {
-        display.textContent = (operandNum1/operandNum2).toString();
+
+    console.log(operandNum1);
+    console.log(operandNum2);
+    if (operandNum1 !== undefined) {//not undefined value
+        if (currentOperator === "*") {
+            display.textContent = (operandNum1*operandNum2).toString();
+        } else if (currentOperator === "+") {
+            display.textContent = (operandNum1+operandNum2).toString();
+        } else if (currentOperator === "-") {
+            display.textContent = (operandNum1-operandNum2).toString();
+        } else if (currentOperator === "/") {
+            display.textContent = (operandNum1/operandNum2).toString();
+        } 
     }
     multiplyPressed = false;
     addPressed = false;
     subPressed = false;
     divPressed = false;
     secondPlusOperand = false;
+    displayArray = []
 }
 
 function operandDisplay(e) {
