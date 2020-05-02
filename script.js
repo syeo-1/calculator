@@ -97,6 +97,7 @@ function equals(){
     subPressed = false;
     divPressed = false;
     secondPlusOperand = false;
+    currentOperator = "";
     displayArray = []
 }
 
