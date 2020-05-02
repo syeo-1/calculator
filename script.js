@@ -101,6 +101,21 @@ function equals(){
     displayArray = []
 }
 
+function decimalDisplay(e) {
+    let display = document.querySelector(".display");
+    if (!displayArray.includes(".")) {
+        displayArray.push(e.target.textContent);
+        display.textContent = displayArray.join("");
+    }
+    if (secondPlusOperand) {
+        displayArray = [];
+        displayArray.push(e.target.textContent);
+        display.textContent = displayArray.join("");
+        secondPlusOperand = false;
+    }
+    console.log(displayArray);
+}
+
 function operandDisplay(e) {
     let display = document.querySelector(".display");
     if (secondPlusOperand) {
@@ -170,10 +185,10 @@ function toMathOperators() {
     sub.addEventListener("click", subtract);
     // eq.addEventListener("click", equals);
 }
-// function toDecimal() {
-//     let decimal = document.querySelector(".decimal");
-//     decimal.addEventListener("click", decimalDisplay);
-// }
+function toDecimal() {
+    let decimal = document.querySelector(".decimal");
+    decimal.addEventListener("click", decimalDisplay);
+}
 function toEquals() {
     let equal = document.querySelector(".equals");
     equal.addEventListener("click", equals);
@@ -182,7 +197,7 @@ function addEventListen() {
     toOperands();
     toResetterOperators();
     toMathOperators();
-    // toDecimal();
+    toDecimal();
     toEquals();
 }
 function calculator() {
