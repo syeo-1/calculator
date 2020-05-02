@@ -34,10 +34,55 @@ function resultDisplayHelper() {
     }
 }
 
+function properOrderOperations() {
+    //TODO: make sure orderOperand is reset at all necessary locations
+    let display = document.querySelector(".display");
+    if (properOrderRequired) {
+        if (addAndMultiply) {
+            operandNum2 = parseFloat(display.textContent);
+            display.textContent = (orderOperand+(operandNum1*operandNum2)).toString();
+            operandNum1 = orderOperand+(operandNum1*operandNum2);
+            addAndMultiply = false;
+        } else if (subAndMultiply) {
+            operandNum2 = parseFloat(display.textContent);
+            display.textContent = (orderOperand-(operandNum1*operandNum2)).toString();
+            operandNum1 = orderOperand-(operandNum1*operandNum2);
+            subAndMultiply = false;
+        } else if (addAndDivide) {
+            operandNum2 = parseFloat(display.textContent);
+            display.textContent = (orderOperand+(operandNum1/operandNum2)).toString();
+            operandNum1 = orderOperand+(operandNum1/operandNum2);
+            addAndDivide = false;
+        } else if (subAndDivide) {
+            operandNum2 = parseFloat(display.textContent);
+            display.textContent = (orderOperand-(operandNum1/operandNum2)).toString();
+            operandNum1 = orderOperand-(operandNum1/operandNum2);
+            subAndDivide = false;
+        }
+        // console.log(orderOperand);
+        properOrderRequired = false;
+        orderOperand = undefined;
+    } else {
+        orderOperand = operandNum1;
+        operandNum1 = parseFloat(display.textContent);
+        if (addPressed && multiplyPressed) addAndMultiply = true;
+        else if (subPressed && multiplyPressed) subAndMultiply = true;
+        else if (addPressed && divPressed) addAndDivide = true;
+        else if (subPressed && divPressed) subAndDivide = true;
+        
+        properOrderRequired = true;
+    } 
+}
+
 function multiply() {
-    resultDisplayHelper();
-    currentOperator = "*";
+    if (addPressed || subPressed || properOrderRequired) {
+        multiplyPressed = true;
+        properOrderOperations();
+    } else {
+        resultDisplayHelper();
+    }
     multiplyPressed = true;
+    currentOperator = "*";
     secondPlusOperand = true;
 
     addPressed = false;
@@ -45,9 +90,14 @@ function multiply() {
     divPressed = false;
 }
 function divide() {
-    resultDisplayHelper();
-    currentOperator = "/";
+    if (addPressed || subPressed || properOrderRequired) {
+        divPressed = true;
+        properOrderOperations();
+    } else {
+        resultDisplayHelper();
+    }
     divPressed = true;
+    currentOperator = "/";
     secondPlusOperand = true;
 
     multiplyPressed = false;
@@ -55,7 +105,11 @@ function divide() {
     subPressed = false;
 }
 function add() {
-    resultDisplayHelper();
+    if (properOrderRequired) {
+        properOrderOperations();
+    } else {
+        resultDisplayHelper();
+    }
     currentOperator = "+";
     addPressed = true;
     secondPlusOperand = true;
@@ -66,7 +120,11 @@ function add() {
 }
 
 function subtract() {
-    resultDisplayHelper();
+    if (properOrderRequired) {
+        properOrderOperations();
+    } else {
+        resultDisplayHelper();
+    }
     currentOperator = "-";
     subPressed = true;
     secondPlusOperand = true;
@@ -81,7 +139,12 @@ function equals(){
 
     // console.log(operandNum1);
     // console.log(operandNum2);
-    if (operandNum1 !== undefined) {//not undefined value
+    if (operandNum1 !== undefined && properOrderRequired) {
+        if (addAndMultiply) display.textContent = (orderOperand+(operandNum1*operandNum2)).toString();
+        else if (subAndMultiply) display.textContent = (orderOperand-(operandNum1*operandNum2)).toString();
+        else if (addAndDivide) display.textContent = (orderOperand+(operandNum1/operandNum2)).toString();
+        else if (subAndDivide) display.textContent = (orderOperand-(operandNum1/operandNum2)).toString();
+    } else if (operandNum1 !== undefined) {//not undefined value
         if (currentOperator === "*") {
             display.textContent = (operandNum1*operandNum2).toString();
         } else if (currentOperator === "+") {
@@ -92,10 +155,19 @@ function equals(){
             display.textContent = (operandNum1/operandNum2).toString();
         } 
     }
+    // console.log(orderOperand);
+    // console.log(operandNum1);
+    // console.log(operandNum2);
+    // console.log(properOrderRequired);
     multiplyPressed = false;
     addPressed = false;
     subPressed = false;
     divPressed = false;
+    addAndMultiply = false;
+    subAndMultiply = false;
+    addAndDivide = false;
+    subAndDivide = false;
+    orderOperand = undefined;
     secondPlusOperand = false;
     currentOperator = "";
     displayArray = []
@@ -150,6 +222,12 @@ function clearDisplay() {
     displayArray = [];
     operandNum1 = undefined;
     operandNum2 = undefined;
+    orderOperand = undefined;
+    properOrderRequired = false;
+    addAndMultiply = false;
+    subAndMultiply = false;
+    addAndDivide = false;
+    subAndDivide = false;
     secondPlusOperand = false;
     multiplyPressed = false;
     addPressed = false;
@@ -177,13 +255,11 @@ function toMathOperators() {
     let div = document.getElementsByClassName("divide")[0];
     let addit = document.getElementsByClassName("add")[0];
     let sub = document.getElementsByClassName("subtract")[0];
-    // let eq = document.getElementsByClassName("equals")[0];
 
     multi.addEventListener("click", multiply);
     div.addEventListener("click", divide);
     addit.addEventListener("click", add);
     sub.addEventListener("click", subtract);
-    // eq.addEventListener("click", equals);
 }
 function toDecimal() {
     let decimal = document.querySelector(".decimal");
@@ -206,12 +282,22 @@ function calculator() {
     addPressed = false;
     subPressed = false;
     divPressed = false;
+    addAndMultiply = false;
+    subAndMultiply = false;
+    addAndDivide = false;
+    subAndDivide = false;
     addEventListen();
 }
 
 let displayArray = [];
 let operandNum1;
 let operandNum2;
+let orderOperand;
+let properOrderRequired;
+let addAndMultiply;
+let subAndMultiply;
+let addAndDivide;
+let subAndDivide;
 let currentOperator;
 let secondPlusOperand;
 let multiplyPressed;
