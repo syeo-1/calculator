@@ -79,8 +79,8 @@ function equals(){
     let display = document.querySelector(".display");
     operandNum2 = parseFloat(display.textContent);
 
-    console.log(operandNum1);
-    console.log(operandNum2);
+    // console.log(operandNum1);
+    // console.log(operandNum2);
     if (operandNum1 !== undefined) {//not undefined value
         if (currentOperator === "*") {
             display.textContent = (operandNum1*operandNum2).toString();
@@ -147,10 +147,10 @@ function toOperands() {
     operands.forEach(operand => operand.addEventListener("click", operandDisplay));
 }
 function toResetterOperators() {
-    // let deleter = document.querySelector(".delete");
+    let deleter = document.querySelector(".delete");
     let clear = document.querySelector(".clear");
 
-    // deleter.addEventListener("click", deleteOperand);
+    deleter.addEventListener("click", deleteOperand);
     clear.addEventListener("click", clearDisplay);
 }
 
