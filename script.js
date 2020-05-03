@@ -12,7 +12,6 @@
 //function for mathematical operators
 
 function resultDisplayHelper() {
-    let display = document.querySelector(".display");
     if (multiplyPressed) {
         operandNum2 = parseFloat(display.textContent);
         display.textContent = (operandNum1*operandNum2).toString();
@@ -36,7 +35,6 @@ function resultDisplayHelper() {
 
 function properOrderOperations() {
     //TODO: make sure orderOperand is reset at all necessary locations
-    let display = document.querySelector(".display");
     if (properOrderRequired) {
         if (addAndMultiply) {
             operandNum2 = parseFloat(display.textContent);
@@ -134,7 +132,6 @@ function subtract() {
     divPressed = false;
 }
 function equals(){
-    let display = document.querySelector(".display");
     operandNum2 = parseFloat(display.textContent);
 
     // console.log(operandNum1);
@@ -145,12 +142,15 @@ function equals(){
         else if (addAndDivide) display.textContent = (orderOperand+(operandNum1/operandNum2)).toString();
         else if (subAndDivide) display.textContent = (orderOperand-(operandNum1/operandNum2)).toString();
     } else if (operandNum1 !== undefined) {//not undefined value
+        console.log("words");
         if (currentOperator === "*") {
             display.textContent = (operandNum1*operandNum2).toString();
         } else if (currentOperator === "+") {
             display.textContent = (operandNum1+operandNum2).toString();
         } else if (currentOperator === "-") {
+            console.log("more stuff");
             display.textContent = (operandNum1-operandNum2).toString();
+            console.log(display.textContent);
         } else if (currentOperator === "/") {
             display.textContent = (operandNum1/operandNum2).toString();
         } 
@@ -174,7 +174,6 @@ function equals(){
 }
 
 function decimalDisplay() {
-    let display = document.querySelector(".display");
     if (!displayArray.includes(".")) {
         displayArray.push(".");
         display.textContent = displayArray.join("");
@@ -189,7 +188,6 @@ function decimalDisplay() {
 }
 
 function operandDisplay(e) {
-    let display = document.querySelector(".display");
     if (secondPlusOperand) {
         displayArray = [];
         displayArray.push(e.target.textContent);
@@ -209,7 +207,6 @@ function operandDisplay(e) {
     
 }
 function deleteOperand() {
-    let display = document.querySelector(".display");
     displayArray.pop();
     display.textContent = displayArray.join("");
     if (display.textContent === "") {
@@ -217,7 +214,6 @@ function deleteOperand() {
     }
 }
 function clearDisplay() {
-    let display = document.querySelector(".display");
     display.textContent = "0";
     console.log(display.textContent);
     displayArray = [];
@@ -274,7 +270,14 @@ function toEquals() {
 }
 
 function keyCodes(e)  {
-    if (displayArray.length < 16) {
+    if (e.keyCode === 8 || e.keyCode === 46 && displayArray.length > 0) deleteOperand();
+    else if (e.keyCode === 190 || e.keyCode === 110) decimalDisplay();
+    else if (e.keyCode === 67) clearDisplay();
+    else if (e.shiftKey && e.keyCode === 187 || e.keyCode === 107) add();
+    else if (e.keyCode === 189 || e.keyCode === 109) subtract();
+    else if (e.keyCode === 191 || e.keyCode === 111) divide();
+    else if (e.keyCode === 13 || e.keyCode === 187) equals();
+    if (displayArray.length < 16 && e.keyCode >= 48 && e.keyCode <= 55 || e.keyCode === 57) {
         if (e.keyCode === 48 && displayArray.length > 0) displayArray.push("0");
         else if (e.keyCode === 49) displayArray.push("1");
         else if (e.keyCode === 50) displayArray.push("2");
@@ -283,31 +286,34 @@ function keyCodes(e)  {
         else if (e.keyCode === 53) displayArray.push("5");
         else if (e.keyCode === 54) displayArray.push("6");
         else if (e.keyCode === 55) displayArray.push("7");
-        else if (e.keyCode === 56) displayArray.push("8");
         else if (e.keyCode === 57) displayArray.push("9");
+
+        display.textContent = displayArray.join("");
     }
-    if (e.keyCode === 8 && displayArray.length > 0) deleteOperand();
-    else if (e.keyCode === 190) decimalDisplay();
-    else if (e.keyCode === 67) clearDisplay();
+
+    if (e.shiftKey && e.keyCode === 56 || e.keyCode === 106) multiply();
+    else if (displayArray.length < 16 && e.keyCode === 56) {
+        displayArray.push("8");
+        display.textContent = displayArray.join("");
+    } 
+
+    // display.textContent = displayArray.join("");
+    // console.log(displayArray);
+    // console.log(orderOperand);
+    // console.log(operandNum1);
+    // console.log(operandNum2);
+
 }
 
 function keyboardOperand(e) {
-    let display = document.querySelector(".display");
     if (secondPlusOperand) {
         displayArray = [];
         keyCodes(e);
-        display.textContent = displayArray.join("");
         secondPlusOperand = false;
-    } else if (displayArray.length === 0 && e.target.textContent !== "0") {
-        keyCodes(e);
-        display.textContent = displayArray.join("");
-    } else if (displayArray.length > 0 && displayArray.length < 16) {
-        keyCodes(e);
-        display.textContent = displayArray.join("");
     } else {
-        keyCodes(e);//just check current key being pressed and act accordingly
+        keyCodes(e);
     }
-    if (displayArray.length === 0) display.textContent = "0";
+    // if (displayArray.length === 0) display.textContent = "0";
     // console.log(e.keyCode);
 }
 
@@ -331,6 +337,8 @@ function calculator() {
     subAndDivide = false;
     addEventListen();
 }
+
+let display = document.querySelector(".display");
 
 let displayArray = [];
 let operandNum1;
