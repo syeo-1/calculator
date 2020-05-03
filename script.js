@@ -272,20 +272,37 @@ function toEquals() {
     equal.addEventListener("click", equals);
 }
 
+function numberOperands(e)  {
+    if (e.keyCode === 48 && displayArray.length > 0) displayArray.push("0");
+    else if (e.keyCode === 49) displayArray.push("1");
+    else if (e.keyCode === 50) displayArray.push("2");
+    else if (e.keyCode === 51) displayArray.push("3");
+    else if (e.keyCode === 52) displayArray.push("4");
+    else if (e.keyCode === 53) displayArray.push("5");
+    else if (e.keyCode === 54) displayArray.push("6");
+    else if (e.keyCode === 55) displayArray.push("7");
+    else if (e.keyCode === 56) displayArray.push("8");
+    else if (e.keyCode === 57) displayArray.push("9");
+}
+
 function keyboardOperand(e) {
     let display = document.querySelector(".display");
-    if (displayArray.length <= 15) {
-        if (e.keyCode === 48) displayArray.push("0");
-        else if (e.keyCode === 49) displayArray.push("1");
-        else if (e.keyCode === 50) displayArray.push("2");
-        else if (e.keyCode === 51) displayArray.push("3");
-        else if (e.keyCode === 52) displayArray.push("4");
-        else if (e.keyCode === 53) displayArray.push("5");
-        else if (e.keyCode === 54) displayArray.push("6");
-        else if (e.keyCode === 55) displayArray.push("7");
-        else if (e.keyCode === 56) displayArray.push("8");
-        else if (e.keyCode === 57) displayArray.push("9");
+    if (secondPlusOperand) {
+        displayArray = [];
+        numberOperands(e);
         display.textContent = displayArray.join("");
+        secondPlusOperand = false;
+    } else {
+        if (displayArray.length === 0 && e.target.textContent !== "0") {
+            numberOperands(e);
+            display.textContent = displayArray.join("");
+        } else if (displayArray.length > 0 && displayArray.length < 16) {
+            numberOperands(e);
+            display.textContent = displayArray.join("");
+        }
+    }
+    if (displayArray.length <= 15) {
+        
     } 
     // console.log(e.keyCode);
 }
