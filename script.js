@@ -71,6 +71,8 @@ function multiply() {
     addPressed = false;
     subPressed = false;
     divPressed = false;
+    console.log(operandNum1);
+    console.log(operandNum2);
 }
 function divide() {
     if (addPressed || subPressed || properOrderRequired) {
@@ -245,7 +247,7 @@ function keyCodes(e)  {
     else if (e.keyCode === 189 || e.keyCode === 109) subtract();
     else if (e.keyCode === 191 || e.keyCode === 111) divide();
     else if (e.keyCode === 13 || e.keyCode === 187) equals();
-    if (displayArray.length < 16 && e.keyCode >= 48 && e.keyCode <= 55 || e.keyCode === 57) {
+    if (displayArray.length < 16 && (e.keyCode >= 48 && e.keyCode <= 55 || e.keyCode === 57)) {
         if (e.keyCode === 48 && displayArray.length > 0) displayArray.push("0");
         else if (e.keyCode === 49) displayArray.push("1");
         else if (e.keyCode === 50) displayArray.push("2");
