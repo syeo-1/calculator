@@ -219,6 +219,7 @@ function deleteOperand() {
 function clearDisplay() {
     let display = document.querySelector(".display");
     display.textContent = "0";
+    console.log(display.textContent);
     displayArray = [];
     operandNum1 = undefined;
     operandNum2 = undefined;
@@ -285,8 +286,9 @@ function keyCodes(e)  {
         else if (e.keyCode === 56) displayArray.push("8");
         else if (e.keyCode === 57) displayArray.push("9");
     }
-    if (e.keyCode === 8 && displayArray.length > 0) displayArray.pop();
+    if (e.keyCode === 8 && displayArray.length > 0) deleteOperand();
     else if (e.keyCode === 190) decimalDisplay();
+    else if (e.keyCode === 67) clearDisplay();
 }
 
 function keyboardOperand(e) {
@@ -305,6 +307,7 @@ function keyboardOperand(e) {
     } else {
         keyCodes(e);//just check current key being pressed and act accordingly
     }
+    if (displayArray.length === 0) display.textContent = "0";
     // console.log(e.keyCode);
 }
 
