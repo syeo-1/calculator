@@ -260,6 +260,8 @@ function toMathOperators() {
     div.addEventListener("click", divide);
     addit.addEventListener("click", add);
     sub.addEventListener("click", subtract);
+
+    //give each operator a border when clicked
 }
 function toDecimal() {
     let decimal = document.querySelector(".decimal");
@@ -269,12 +271,32 @@ function toEquals() {
     let equal = document.querySelector(".equals");
     equal.addEventListener("click", equals);
 }
+
+function keyboardOperand(e) {
+    let display = document.querySelector(".display");
+    if (displayArray.length <= 15) {
+        if (e.keyCode === 48) displayArray.push("0");
+        else if (e.keyCode === 49) displayArray.push("1");
+        else if (e.keyCode === 50) displayArray.push("2");
+        else if (e.keyCode === 51) displayArray.push("3");
+        else if (e.keyCode === 52) displayArray.push("4");
+        else if (e.keyCode === 53) displayArray.push("5");
+        else if (e.keyCode === 54) displayArray.push("6");
+        else if (e.keyCode === 55) displayArray.push("7");
+        else if (e.keyCode === 56) displayArray.push("8");
+        else if (e.keyCode === 57) displayArray.push("9");
+        display.textContent = displayArray.join("");
+    } 
+    // console.log(e.keyCode);
+}
+
 function addEventListen() {
     toOperands();
     toResetterOperators();
     toMathOperators();
     toDecimal();
     toEquals();
+    window.addEventListener("keydown", keyboardOperand)
 }
 function calculator() {
     secondPlusOperand = false;
