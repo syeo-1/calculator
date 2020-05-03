@@ -1,16 +1,3 @@
-// add event listeners to all buttons on click
-
-//for now, make it so the text on button being clicked
-//resets the text currently on the display
-
-//function for numbers
-
-//function for decimal
-
-//function for resetters
-
-//function for mathematical operators
-
 function resultDisplayHelper() {
     if (multiplyPressed) {
         operandNum2 = parseFloat(display.textContent);
@@ -34,7 +21,6 @@ function resultDisplayHelper() {
 }
 
 function properOrderOperations() {
-    //TODO: make sure orderOperand is reset at all necessary locations
     if (properOrderRequired) {
         if (addAndMultiply) {
             operandNum2 = parseFloat(display.textContent);
@@ -57,7 +43,6 @@ function properOrderOperations() {
             operandNum1 = orderOperand-(operandNum1/operandNum2);
             subAndDivide = false;
         }
-        // console.log(orderOperand);
         properOrderRequired = false;
         orderOperand = undefined;
     } else {
@@ -134,31 +119,22 @@ function subtract() {
 function equals(){
     operandNum2 = parseFloat(display.textContent);
 
-    // console.log(operandNum1);
-    // console.log(operandNum2);
     if (operandNum1 !== undefined && properOrderRequired) {
         if (addAndMultiply) display.textContent = (orderOperand+(operandNum1*operandNum2)).toString();
         else if (subAndMultiply) display.textContent = (orderOperand-(operandNum1*operandNum2)).toString();
         else if (addAndDivide) display.textContent = (orderOperand+(operandNum1/operandNum2)).toString();
         else if (subAndDivide) display.textContent = (orderOperand-(operandNum1/operandNum2)).toString();
-    } else if (operandNum1 !== undefined) {//not undefined value
-        console.log("words");
+    } else if (operandNum1 !== undefined) {
         if (currentOperator === "*") {
             display.textContent = (operandNum1*operandNum2).toString();
         } else if (currentOperator === "+") {
             display.textContent = (operandNum1+operandNum2).toString();
         } else if (currentOperator === "-") {
-            console.log("more stuff");
             display.textContent = (operandNum1-operandNum2).toString();
-            console.log(display.textContent);
         } else if (currentOperator === "/") {
             display.textContent = (operandNum1/operandNum2).toString();
         } 
     }
-    // console.log(orderOperand);
-    // console.log(operandNum1);
-    // console.log(operandNum2);
-    // console.log(properOrderRequired);
     multiplyPressed = false;
     addPressed = false;
     subPressed = false;
@@ -184,7 +160,6 @@ function decimalDisplay() {
         display.textContent = displayArray.join("");
         secondPlusOperand = false;
     }
-    // console.log(displayArray);
 }
 
 function operandDisplay(e) {
@@ -202,9 +177,6 @@ function operandDisplay(e) {
             display.textContent = displayArray.join("");
         }
     }
-    // console.log(operandNum1);
-    // console.log(operandNum2);
-    
 }
 function deleteOperand() {
     displayArray.pop();
@@ -215,7 +187,6 @@ function deleteOperand() {
 }
 function clearDisplay() {
     display.textContent = "0";
-    console.log(display.textContent);
     displayArray = [];
     operandNum1 = undefined;
     operandNum2 = undefined;
@@ -243,9 +214,6 @@ function toResetterOperators() {
     deleter.addEventListener("click", deleteOperand);
     clear.addEventListener("click", clearDisplay);
 }
-
-//only care about the number on the display the moment an operator is pressed
-//once an operator is clicked, store the number being displayed (initially to operandNum1)
 
 function toMathOperators() {
     let multi = document.getElementsByClassName("multiply")[0];
@@ -296,13 +264,6 @@ function keyCodes(e)  {
         displayArray.push("8");
         display.textContent = displayArray.join("");
     } 
-
-    // display.textContent = displayArray.join("");
-    // console.log(displayArray);
-    // console.log(orderOperand);
-    // console.log(operandNum1);
-    // console.log(operandNum2);
-
 }
 
 function keyboardOperand(e) {
@@ -313,8 +274,6 @@ function keyboardOperand(e) {
     } else {
         keyCodes(e);
     }
-    // if (displayArray.length === 0) display.textContent = "0";
-    // console.log(e.keyCode);
 }
 
 function addEventListen() {
