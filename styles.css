@@ -26,14 +26,16 @@ html, body {
 button {
     color: white;
     font-size: 24px;
+    border-color: black;
 }
 
 .display {
-    background-color: #a2af77;
+    background-color: black;
     grid-area: display;
     font-size: 36px;
     text-align: right;
     padding-top: 7%;
+    color: white;
 }
 
 .operandGroup {
