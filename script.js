@@ -173,19 +173,19 @@ function equals(){
     displayArray = []
 }
 
-function decimalDisplay(e) {
+function decimalDisplay() {
     let display = document.querySelector(".display");
     if (!displayArray.includes(".")) {
-        displayArray.push(e.target.textContent);
+        displayArray.push(".");
         display.textContent = displayArray.join("");
     }
     if (secondPlusOperand) {
         displayArray = [];
-        displayArray.push(e.target.textContent);
+        displayArray.push(".");
         display.textContent = displayArray.join("");
         secondPlusOperand = false;
     }
-    console.log(displayArray);
+    // console.log(displayArray);
 }
 
 function operandDisplay(e) {
@@ -272,38 +272,39 @@ function toEquals() {
     equal.addEventListener("click", equals);
 }
 
-function numberOperands(e)  {
-    if (e.keyCode === 48 && displayArray.length > 0) displayArray.push("0");
-    else if (e.keyCode === 49) displayArray.push("1");
-    else if (e.keyCode === 50) displayArray.push("2");
-    else if (e.keyCode === 51) displayArray.push("3");
-    else if (e.keyCode === 52) displayArray.push("4");
-    else if (e.keyCode === 53) displayArray.push("5");
-    else if (e.keyCode === 54) displayArray.push("6");
-    else if (e.keyCode === 55) displayArray.push("7");
-    else if (e.keyCode === 56) displayArray.push("8");
-    else if (e.keyCode === 57) displayArray.push("9");
+function keyCodes(e)  {
+    if (displayArray.length < 16) {
+        if (e.keyCode === 48 && displayArray.length > 0) displayArray.push("0");
+        else if (e.keyCode === 49) displayArray.push("1");
+        else if (e.keyCode === 50) displayArray.push("2");
+        else if (e.keyCode === 51) displayArray.push("3");
+        else if (e.keyCode === 52) displayArray.push("4");
+        else if (e.keyCode === 53) displayArray.push("5");
+        else if (e.keyCode === 54) displayArray.push("6");
+        else if (e.keyCode === 55) displayArray.push("7");
+        else if (e.keyCode === 56) displayArray.push("8");
+        else if (e.keyCode === 57) displayArray.push("9");
+    }
+    if (e.keyCode === 8 && displayArray.length > 0) displayArray.pop();
+    else if (e.keyCode === 190) decimalDisplay();
 }
 
 function keyboardOperand(e) {
     let display = document.querySelector(".display");
     if (secondPlusOperand) {
         displayArray = [];
-        numberOperands(e);
+        keyCodes(e);
         display.textContent = displayArray.join("");
         secondPlusOperand = false;
+    } else if (displayArray.length === 0 && e.target.textContent !== "0") {
+        keyCodes(e);
+        display.textContent = displayArray.join("");
+    } else if (displayArray.length > 0 && displayArray.length < 16) {
+        keyCodes(e);
+        display.textContent = displayArray.join("");
     } else {
-        if (displayArray.length === 0 && e.target.textContent !== "0") {
-            numberOperands(e);
-            display.textContent = displayArray.join("");
-        } else if (displayArray.length > 0 && displayArray.length < 16) {
-            numberOperands(e);
-            display.textContent = displayArray.join("");
-        }
+        keyCodes(e);//just check current key being pressed and act accordingly
     }
-    if (displayArray.length <= 15) {
-        
-    } 
     // console.log(e.keyCode);
 }
 
