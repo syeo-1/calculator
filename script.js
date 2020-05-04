@@ -57,12 +57,20 @@ function properOrderOperations() {
     } 
 }
 
+function operatorInARow() {
+    //check if operators are pressed in a row
+    //and only take the last one that was pressed
+}
+
 function multiply() {
-    if (addPressed || subPressed || properOrderRequired) {
-        multiplyPressed = true;
-        properOrderOperations();
-    } else {
-        resultDisplayHelper();
+    if (!operatorPressed) {
+        if (addPressed || subPressed || properOrderRequired) {
+            multiplyPressed = true;
+            properOrderOperations();
+        } else {
+            resultDisplayHelper();
+        }
+        operatorPressed = true;
     }
     multiplyPressed = true;
     currentOperator = "*";
@@ -71,15 +79,16 @@ function multiply() {
     addPressed = false;
     subPressed = false;
     divPressed = false;
-    console.log(operandNum1);
-    console.log(operandNum2);
 }
 function divide() {
-    if (addPressed || subPressed || properOrderRequired) {
-        divPressed = true;
-        properOrderOperations();
-    } else {
-        resultDisplayHelper();
+    if (!operatorPressed) {
+        if (addPressed || subPressed || properOrderRequired) {
+            divPressed = true;
+            properOrderOperations();
+        } else {
+            resultDisplayHelper();
+        }
+        operatorPressed = true;
     }
     divPressed = true;
     currentOperator = "/";
@@ -90,11 +99,14 @@ function divide() {
     subPressed = false;
 }
 function add() {
-    if (properOrderRequired) {
-        properOrderOperations();
-    } else {
-        resultDisplayHelper();
-    }
+    if (!operatorPressed) {
+        if (properOrderRequired) {
+            properOrderOperations();
+        } else {
+            resultDisplayHelper();
+        }
+        operatorPressed = true;
+    }  
     currentOperator = "+";
     addPressed = true;
     secondPlusOperand = true;
@@ -105,11 +117,14 @@ function add() {
 }
 
 function subtract() {
-    if (properOrderRequired) {
-        properOrderOperations();
-    } else {
-        resultDisplayHelper();
-    }
+    if (!operatorPressed) {
+        if (properOrderRequired) {
+            properOrderOperations();
+        } else {
+            resultDisplayHelper();
+        }
+        operatorPressed = true;
+    }  
     currentOperator = "-";
     subPressed = true;
     secondPlusOperand = true;
@@ -179,6 +194,7 @@ function operandDisplay(e) {
             display.textContent = displayArray.join("");
         }
     }
+    operatorPressed = false;
 }
 function deleteOperand() {
     displayArray.pop();
@@ -259,12 +275,14 @@ function keyCodes(e)  {
         else if (e.keyCode === 57) displayArray.push("9");
 
         display.textContent = displayArray.join("");
+        operatorPressed = false;
     }
 
     if (e.shiftKey && e.keyCode === 56 || e.keyCode === 106) multiply();
     else if (displayArray.length < 16 && e.keyCode === 56) {
         displayArray.push("8");
         display.textContent = displayArray.join("");
+        operatorPressed = false;
     } 
 }
 
@@ -296,6 +314,7 @@ function calculator() {
     subAndMultiply = false;
     addAndDivide = false;
     subAndDivide = false;
+    operatorPressed = false;
     addEventListen();
 }
 
@@ -316,4 +335,5 @@ let multiplyPressed;
 let addPressed;
 let subPressed;
 let divPressed;
+let operatorPressed;
 calculator();
