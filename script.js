@@ -70,15 +70,17 @@ function multiply() {
         } else {
             resultDisplayHelper();
         }
-        operatorPressed = true;
     }
     multiplyPressed = true;
     currentOperator = "*";
     secondPlusOperand = true;
 
-    addPressed = false;
-    subPressed = false;
-    divPressed = false;
+    if (!operatorPressed) {
+        addPressed = false;
+        subPressed = false;
+        divPressed = false;
+        operatorPressed = true;
+    }  
 }
 function divide() {
     if (!operatorPressed) {
@@ -88,15 +90,17 @@ function divide() {
         } else {
             resultDisplayHelper();
         }
-        operatorPressed = true;
     }
     divPressed = true;
     currentOperator = "/";
     secondPlusOperand = true;
 
-    multiplyPressed = false;
-    addPressed = false;
-    subPressed = false;
+    if (!operatorPressed) {
+        multiplyPressed = false;
+        addPressed = false;
+        subPressed = false;
+        operatorPressed = true;
+    }
 }
 function add() {
     if (!operatorPressed) {
@@ -105,15 +109,19 @@ function add() {
         } else {
             resultDisplayHelper();
         }
-        operatorPressed = true;
+        console.log(operandNum1);
+        console.log(operandNum2);
     }  
     currentOperator = "+";
     addPressed = true;
     secondPlusOperand = true;
 
-    multiplyPressed = false;
-    subPressed = false;
-    divPressed = false;
+    if (!operatorPressed) {
+        multiplyPressed = false;
+        subPressed = false;
+        divPressed = false;
+        operatorPressed = true;
+    }
 }
 
 function subtract() {
@@ -123,15 +131,17 @@ function subtract() {
         } else {
             resultDisplayHelper();
         }
-        operatorPressed = true;
     }  
     currentOperator = "-";
     subPressed = true;
     secondPlusOperand = true;
 
-    multiplyPressed = false;
-    addPressed = false;
-    divPressed = false;
+    if (!operatorPressed) {
+        multiplyPressed = false;
+        addPressed = false;
+        divPressed = false;
+        operatorPressed = true;
+    }
 }
 function equals(){
     operandNum2 = parseFloat(display.textContent);
