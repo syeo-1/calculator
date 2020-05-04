@@ -6,6 +6,8 @@ things I learned about:
 - writing vanilla javascript code
 - refactoring code
 - developing new features and writing informative commit messages
+- creating/using event handlers
+- making things look good on both desktop and mobile devices
 
 things to improve on for future projects:
 - the use of many boolean flags really slowed down development and should be avoided on this scale in all future projects
