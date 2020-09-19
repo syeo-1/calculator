@@ -4,6 +4,7 @@ things I learned about:
 - using css grids to organize sections of html and styles
 - familiarizing myself with DOM manipulation
 - writing vanilla javascript code
+- handling keyboard inputs
 - refactoring code
 - developing new features and writing informative commit messages
 - creating/using event handlers
